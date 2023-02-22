@@ -14,6 +14,7 @@ const client = new Client({
     GatewayIntentBits.MessageContent,
   ],
 });
+
 require("dotenv").config();
 
 client.on("ready", () => {
