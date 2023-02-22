@@ -7,7 +7,6 @@ const {
 } = require(`discord.js`);
 
 const prefix = ">";
-//CHUUUUUUUUUUUUUUUUUJ
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
