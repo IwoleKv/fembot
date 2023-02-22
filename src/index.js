@@ -1,68 +1,63 @@
-const {
-  Client,
-  GatewayIntentBits,
-  EmbedBuilder,
-  PermissionsBitField,
-  Permissions,
-} = require(`discord.js`);
 
-const prefix = ">";
-const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
-  ],
-});
+const fs = require('node:fs');
+const path = require('node:path');
+const { Client, Events, GatewayIntentBits, EmbedBuilder, PermissionsBitField, Permissions, Collection } = require('discord.js');
 require("dotenv").config();
 
-client.on("ready", () => {
-  console.log("Online");
-  client.user.setActivity(`Testowane jest`, { type: "gówno" });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
+
+client.commands = new Collection();
+
+const commandsPath = path.join(__dirname, '../commands');
+const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+	const filePath = path.join(commandsPath, file);
+	const command = require(filePath);
+	if ('data' in command && 'execute' in command) {
+		client.commands.set(command.data.name, command);
+	} else {
+		console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+	}
+}
+
+client.on(Events.InteractionCreate, async interaction => {
+	if (!interaction.isChatInputCommand()) return;
+
+	const command = interaction.client.commands.get(interaction.commandName);
+
+	if (!command) {
+		console.error(`No command matching ${interaction.commandName} was found.`);
+		return;
+	}
+
+	try {
+		await command.execute(interaction);
+	} catch (error) {
+		console.error(error);
+		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+	}
 });
 
-client.on("messageCreate", (message) => {
-  if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-  const args = message.content.slice(prefix.length).split(/ +/);
-  const command = args.shift().toLowerCase();
-  const messageArray = message.content.split(" ");
-  const argument = messageArray.slice(1);
-  const cmd = messageArray[0];
-  const member = message.mentions.members.first() || message.member;
 
-  if (command === `ping`) {
-    message.channel.send("pong");
-  }
 
-  if (command === `p`) {
 
-    const exampleEmbed = {
-      color: 0xff0059,
-      title: `${member.user.tag}`,
-      author: {
-        name: "autorTEST",
-        icon_url: "https://i.imgur.com/RcScLqU.png",
-        url: "https://i.imgur.com/RcScLqU.png",
-      },
-      description: `${member}`,
-      thumbnail: {
-        url: "https://i.imgur.com/RcScLqU.png",
-      },
-      image: {
-        url: "https://i.imgur.com/RcScLqU.png",
-      },
-      timestamp: new Date().toISOString(),
-      footer: {
-        text: message.author.username,
-        icon_url: message.author.avatarURL(),
-      },
-    };
 
-    message.channel.send({ embeds: [exampleEmbed] });
-    message.channel.send(`1: ${member}`)
-    message.channel.send(`2: ${args}`)
-  }
+
+
+
+
+
+
+
+
+
+
+
+
+client.once(Events.ClientReady, c => {
+	console.log(`>${c.user.tag}< gotowy`);
 });
 
 client.login(process.env.DISCORDJS_BOT_TOKEN);
