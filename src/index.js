@@ -1,4 +1,3 @@
-
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Events, GatewayIntentBits, EmbedBuilder, PermissionsBitField, Permissions, Collection } = require('discord.js');
