@@ -17,7 +17,7 @@ for (const file of commandFiles) {
 	if ('data' in command && 'execute' in command) {
 		client.commands.set(command.data.name, command);
 	} else {
-		console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+		console.log(`[!!!] Komenda w _${filePath}_ nie ma właściwości "data" lub "execute"`);
 	}
 }
 
@@ -27,7 +27,7 @@ client.on(Events.InteractionCreate, async interaction => {
 	const command = interaction.client.commands.get(interaction.commandName);
 
 	if (!command) {
-		console.error(`No command matching ${interaction.commandName} was found.`);
+		console.error(`Komenda ${interaction.commandName} nie została znaleziona.`);
 		return;
 	}
 
@@ -35,7 +35,7 @@ client.on(Events.InteractionCreate, async interaction => {
 		await command.execute(interaction);
 	} catch (error) {
 		console.error(error);
-		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+		await interaction.reply({ content: 'BŁĄD KURWA, SPRAWDŹ CON.LOG (to do iwa)', ephemeral: true });
 	}
 });
 
