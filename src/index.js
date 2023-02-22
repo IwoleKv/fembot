@@ -5,8 +5,7 @@ const {
   PermissionsBitField,
   Permissions,
 } = require(`discord.js`);
-dsadada
-dadads
+
 const prefix = ">";
 const client = new Client({
   intents: [
