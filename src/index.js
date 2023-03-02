@@ -51,10 +51,6 @@ client.on(Events.InteractionCreate, async interaction => {
 
 
 
-
-
-
-
 client.once(Events.ClientReady, c => {
 	console.log(`>${c.user.tag}< gotowy`);
 });
