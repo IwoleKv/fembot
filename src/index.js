@@ -31,6 +31,7 @@ client.on(Events.InteractionCreate, async interaction => {
 		return;
 	}
 
+
 	try {
 		await command.execute(interaction);
 	}
