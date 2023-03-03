@@ -51,7 +51,6 @@ module.exports = {
    * @param {ChatInputCommandInteraction} interaction
    */
 	async execute(interaction) {
-		// const wait = require('node:timers/promises').setTimeout;
 		const int = interaction.options.getNumber('ilość');
 		const member1 = interaction.options.getUser('użytkownik1');
 		const member2 = interaction.options.getUser('użytkownik2');
