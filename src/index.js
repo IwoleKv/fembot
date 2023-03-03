@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Events, GatewayIntentBits, EmbedBuilder, PermissionsBitField, Permissions, Collection } = require('discord.js');
-require("dotenv").config();
+require('dotenv').config();
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 
@@ -15,7 +15,8 @@ for (const file of commandFiles) {
 	const command = require(filePath);
 	if ('data' in command && 'execute' in command) {
 		client.commands.set(command.data.name, command);
-	} else {
+	}
+	else {
 		console.log(`[!!!] Komenda w _${filePath}_ nie ma właściwości "data" lub "execute"`);
 	}
 }
@@ -32,23 +33,12 @@ client.on(Events.InteractionCreate, async interaction => {
 
 	try {
 		await command.execute(interaction);
-	} catch (error) {
+	}
+	catch (error) {
 		console.error(error);
 		await interaction.reply({ content: 'BŁĄD KURWA, SPRAWDŹ CON.LOG (to do iwa)', ephemeral: true });
 	}
 });
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 client.once(Events.ClientReady, c => {
