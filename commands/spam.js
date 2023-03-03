@@ -13,12 +13,6 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('spam')
 		.setDescription('spami :)')
-		.addUserOption((option) =>
-			option
-				.setName('użytkownik')
-				.setDescription('Oznacz użytkownika')
-				.setRequired(true),
-		)
 		.addNumberOption((option) =>
 			option
 				.setName('ilość')
@@ -26,6 +20,24 @@ module.exports = {
 				.setMinValue(1)
 				.setMaxValue(50)
 				.setRequired(true),
+		)
+		.addUserOption((optionx) =>
+			optionx
+				.setName('użytkownik1')
+				.setDescription('Oznacz 1 użytkownika')
+				.setRequired(true),
+		)
+		.addUserOption((option) =>
+			option
+				.setName('użytkownik2')
+				.setDescription('Oznacz 2 użytkownika')
+				.setRequired(false),
+		)
+		.addUserOption((option) =>
+			option
+				.setName('użytkownik3')
+				.setDescription('Oznacz 3 użytkownika')
+				.setRequired(false),
 		)
 		.addStringOption((option) =>
 			option
@@ -41,16 +53,20 @@ module.exports = {
 	async execute(interaction) {
 		// const wait = require('node:timers/promises').setTimeout;
 		const int = interaction.options.getNumber('ilość');
-		const member = interaction.options.getUser('użytkownik');
+		const member1 = interaction.options.getUser('użytkownik1');
+		const member2 = interaction.options.getUser('użytkownik2');
+		const member3 = interaction.options.getUser('użytkownik3');
 		const input = interaction.options.getString('tekst');
-		await interaction
-			.reply({ content: 'Wycisz discorda', ephemeral: true });
-		await interaction
-			.deleteReply();
+		await interaction.reply({ content: 'Wycisz discorda', ephemeral: true });
+		await interaction.deleteReply();
 		console.log(interaction.user.tag);
 		for (let step = 1; step <= int; step++) {
 			await interaction
-				.followUp(`${member} ${input === null ? '' : input} \`${step}\``)
+				.followUp(
+					`${member1} ${member2 === null ? '' : member2} ${
+						member3 === null ? '' : member3
+					} ${input === null ? '' : input} \`${step}\``,
+				)
 				.then((msg) => {
 					msg.delete();
 				});
