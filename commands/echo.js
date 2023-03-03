@@ -63,11 +63,11 @@ module.exports = {
 		);
 	},
 	async execute(interaction) {
-		const colors = [
-			{ value: 0xED4245, name: 'czerwony' },
-			{ value: 0x57F287, name: 'zielony' },
-			{ value: 0xFEE75C, name: 'żółty' },
-		];
+		// const colors = [
+		// 	{ value: 0xED4245, name: 'czerwony' },
+		// 	{ value: 0x57F287, name: 'zielony' },
+		// 	{ value: 0xFEE75C, name: 'żółty' },
+		// ];
 		// eslint-disable-next-line no-undef
 		const kolor = interaction.options.getString('kolor');
 		const emb = interaction.options.getSubcommand('tabelka');
