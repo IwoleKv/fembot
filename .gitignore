@@ -1,5 +1,9 @@
-node_modules
-.env
-config.json
-MyTrash
-.vscode
+*
+!commands
+!commands/*
+!src
+!src/*
+!.eslintrc.json
+!.gitignore
+!scripts
+!scripts/*
