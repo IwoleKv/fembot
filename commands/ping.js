@@ -11,8 +11,8 @@ const {
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('ping')
-		.setDescription('test ping')
+		.setName('spam')
+		.setDescription('spami :)')
 		.addUserOption((option) =>
 			option
 				.setName('użytkownik')
