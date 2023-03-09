@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 const {
 	SlashCommandBuilder,
 	ChatInputCommandInteraction,
@@ -150,7 +149,7 @@ module.exports = {
 		const txt_normal = interaction.options.getString('tekst');
 		const emb = interaction.options.getSubcommand('tabelka');
 		const kursywa = interaction.options.getBoolean('kursywa');
-		const spoiler = interaction.options.getBoolean('spoiler');
+		const spoiler_ = interaction.options.getBoolean('spoiler');
 		const pogrubienie = interaction.options.getBoolean('pogrubienie');
 		const codeblock = interaction.options.getSubcommand('codeblock');
 		const channel_ =
@@ -163,7 +162,7 @@ module.exports = {
 			if (pogrubienie === true) {
 				txt = bold(txt);
 			}
-			if (spoiler === true) {
+			if (spoiler_ === true) {
 				txt = spoiler(txt);
 			}
 			return txt;
